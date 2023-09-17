@@ -7,7 +7,7 @@ define Device/linkstar_h68k
   SOC := rk3568
   DEVICE_MODEL := linkstar_h68k
   UBOOT_DEVICE_NAME := linkstar_h68k
-  IMAGE/sysupgrade.img.gz := boot-common | boot-script nanopi-r5s | pine64-img | gzip | append-metadata
+  IMAGE/sysupgrade.img.gz := boot-common | boot-script linkstar | linkstar-img | gzip | append-metadata
   DEVICE_PACKAGES := kmod-ata-ahci-platform kmod-mt7921e kmod-r8125 kmod-usb-serial-cp210x wpad-openssl ethtool
 endef
 
