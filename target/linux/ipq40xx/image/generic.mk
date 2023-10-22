@@ -354,7 +354,7 @@ endef
 #TARGET_DEVICES += compex_wpj419
 
 define Device/compex_wpj428
-	$(call Device/FitImage)
+	$(call Device/FitzImage)
 	DEVICE_VENDOR := Compex
 	DEVICE_MODEL := WPJ428
 	SOC := qcom-ipq4028
@@ -537,6 +537,16 @@ define Device/extreme-networks_ws-ap3915i
 	IMAGE/sysupgrade.bin := append-kernel | append-rootfs | pad-rootfs | check-size | append-metadata
 endef
 TARGET_DEVICES += extreme-networks_ws-ap3915i
+
+define Device/extreme-networks_ws-ap391x
+	$(call Device/FitImage)
+	DEVICE_VENDOR := Extreme Networks
+	DEVICE_MODEL := WS-AP391x
+	IMAGE_SIZE := 15040k
+	SOC := qcom-ipq4029
+	IMAGE/sysupgrade.bin := append-kernel | append-rootfs | pad-rootfs | check-size | append-metadata
+endef
+TARGET_DEVICES += extreme-networks_ws-ap391x
 
 define Device/ezviz_cs-w3-wd1200g-eup
 	$(call Device/FitImage)
@@ -1160,6 +1170,20 @@ define Device/zte_mf28x_common
 	DEVICE_PACKAGES := kmod-usb-net-qmi-wwan kmod-usb-serial-option uqmi
 endef
 
+define Device/zte_mf282plus
+	$(call Device/zte_mf28x_common)
+	DEVICE_MODEL := MF282Plus
+#	The recovery image is used to return back to stock (an initramfs-based image
+#	that can be flashed to the device via sysupgrade
+#	The factory image is used to install from the stock firmware by using an
+#	exploit for the web interface
+	IMAGES += factory.bin recovery.bin
+	IMAGE/factory.bin  := append-ubi
+	IMAGE/recovery.bin := append-squashfs4-fakeroot | sysupgrade-tar kernel=$$$$(BIN_DIR)/$$(KERNEL_INITRAMFS_IMAGE) rootfs=$$$$@ | append-metadata
+	DEVICE_PACKAGES := kmod-usb-acm kmod-usb-net-rndis
+endef
+TARGET_DEVICES += zte_mf282plus
+
 define Device/zte_mf286d
 	$(call Device/zte_mf28x_common)
 	DEVICE_MODEL := MF286D
@@ -1168,7 +1192,6 @@ TARGET_DEVICES += zte_mf286d
 
 define Device/zte_mf287_common
 	$(call Device/zte_mf28x_common)
-	DEVICE_PACKAGES += ipq-wifi-zte_mf287plus
 	SOC := qcom-ipq4018
 #	The recovery image is used to return back to stock (an initramfs-based image
 #	that can be flashed to the device via sysupgrade
@@ -1181,15 +1204,23 @@ endef
 
 define Device/zte_mf287plus
 	$(call Device/zte_mf287_common)
+	DEVICE_PACKAGES += ipq-wifi-zte_mf287plus
 	DEVICE_DTS_CONFIG := config@ap.dk01.1-c2
 	DEVICE_MODEL := MF287Plus
-	DEVICE_ALT0_VENDOR := ZTE
-	DEVICE_ALT0_MODEL := MF287
 endef
 TARGET_DEVICES += zte_mf287plus
 
+define Device/zte_mf287
+	$(call Device/zte_mf287_common)
+	DEVICE_PACKAGES += ipq-wifi-zte_mf287
+	DEVICE_DTS_CONFIG := config@ap.dk01.1-c2
+	DEVICE_MODEL := MF287
+endef
+TARGET_DEVICES += zte_mf287
+
 define Device/zte_mf287pro
 	$(call Device/zte_mf287_common)
+	DEVICE_PACKAGES += ipq-wifi-zte_mf287plus
 	DEVICE_DTS_CONFIG := config@ap.dk04.1-c1
 	DEVICE_MODEL := MF287Pro
 endef

@@ -558,6 +558,21 @@ define Device/comfast_cf-e390ax
 endef
 TARGET_DEVICES += comfast_cf-e390ax
 
+define Device/comfast_cf-ew72-v2
+    $(Device/dsa-migration)
+    $(Device/uimage-lzma-loader)
+    IMAGE_SIZE := 15808k
+    DEVICE_VENDOR := ComFast
+    DEVICE_MODEL := CF-EW72 V2
+    DEVICE_PACKAGES := kmod-mt7603 kmod-mt7615e kmod-mt7663-firmware-ap \
+        -uboot-envtools
+    IMAGES += factory.bin
+    IMAGE/sysupgrade.bin := append-kernel | append-rootfs | pad-rootfs | \
+        check-size | append-metadata
+    IMAGE/factory.bin := append-kernel | append-rootfs | pad-rootfs | check-size
+endef
+TARGET_DEVICES += comfast_cf-ew72-v2
+
 define Device/cudy_m1800
   $(Device/dsa-migration)
   DEVICE_VENDOR := Cudy
@@ -2113,7 +2128,7 @@ define Device/telco-electronics_x1
   IMAGE_SIZE := 16064k
   DEVICE_VENDOR := Telco Electronics
   DEVICE_MODEL := X1
-  DEVICE_PACKAGES := kmod-usb3 kmod-mt76 -uboot-envtools
+  DEVICE_PACKAGES := kmod-usb3 kmod-mt7603 kmod-mt76x2 -uboot-envtools
 endef
 TARGET_DEVICES += telco-electronics_x1
 
@@ -2545,6 +2560,20 @@ define Device/wavlink_ws-wn572hp3-4g
 	kmod-usb3 kmod-usb-net-rndis comgt-ncm -uboot-envtools
 endef
 TARGET_DEVICES += wavlink_ws-wn572hp3-4g
+
+
+define Device/wavlink_wl-wn573hx1
+  $(Device/uimage-lzma-loader)
+  IMAGE_SIZE := 15808k
+  DEVICE_VENDOR := Wavlink
+  DEVICE_MODEL := WL-WN573HX1
+  DEVICE_PACKAGES := kmod-mt7915-firmware -uboot-envtools
+  IMAGES += factory.bin
+  IMAGE/sysupgrade.bin := append-kernel | append-rootfs | pad-rootfs | \
+	check-size | append-metadata
+  IMAGE/factory.bin := append-kernel | append-rootfs | pad-rootfs | check-size
+endef
+TARGET_DEVICES += wavlink_wl-wn573hx1
 
 define Device/wevo_11acnas
   $(Device/dsa-migration)
