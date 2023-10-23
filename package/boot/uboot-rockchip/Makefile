@@ -125,13 +125,13 @@ define U-Boot/rk3568/Default
   OF_PLATDATA:=$(1)
 endef
 
+# linkstar_h68k
 
-define U-Boot/opc-h68k-rk3568
+define U-Boot/linkstar-h68k-rk3568
   BUILD_SUBTARGET:=armv8
-  NAME:=OPC-H68K Board
+  NAME:=LinkstarH68k
   BUILD_DEVICES:= \
-    linkstar_opc-h68k
-  DEPENDS:=+PACKAGE_u-boot-opc-h68k-rk3568:trusted-firmware-a-rk3568
+    linkstar_h68k
   ATF:=rk3568_bl31_v1.28.elf
   DDR:=rk3568_ddr_1560MHz_v1.13.bin
 endef
@@ -150,7 +150,7 @@ UBOOT_TARGETS := \
   roc-cc-rk3328 \
   rock64-rk3328 \
   rock-pi-e-rk3328 \
-  opc-h68k-rk3568 
+  linkstar-h68k-rk3568 
 
 
 UBOOT_CONFIGURE_VARS += USE_PRIVATE_LIBGCC=yes
