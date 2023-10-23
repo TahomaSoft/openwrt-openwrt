@@ -128,6 +128,7 @@ endef
 # linkstar_h68k
 
 define U-Boot/linkstar-h68k-rk3568
+  $(U-Boot/rk3568/Default)
   BUILD_SUBTARGET:=armv8
   NAME:=LinkstarH68k
   BUILD_DEVICES:= \
