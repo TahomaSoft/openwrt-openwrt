@@ -34,7 +34,7 @@ define Trusted-Firmware-A/rk3399
 endef
 
 define Trusted-Firmware-A/rk3568
-   BUILD_SUBTARGET:=armv8	
+   BUILD_SUBTARGET:=rk3568
    PLAT:=rk3568
 endef
 
