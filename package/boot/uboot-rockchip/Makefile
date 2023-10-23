@@ -131,7 +131,7 @@ define U-Boot/opc-h68k-rk3568
   NAME:=OPC-H68K Board
   BUILD_DEVICES:= \
     linkstar_opc-h68k
-  DEPENDS:=+PACKAGE_u-boot-opc-h68k-rk3568:arm-trusted-firmware-a-rk3568
+  DEPENDS:=+PACKAGE_u-boot-opc-h68k-rk3568:trusted-firmware-a-rk3568
   ATF:=rk3568_bl31_v1.28.elf
   DDR:=rk3568_ddr_1560MHz_v1.13.bin
 endef
