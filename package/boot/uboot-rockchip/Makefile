@@ -121,7 +121,7 @@ endef
 define U-Boot/rk3568/Default
   BUILD_SUBTARGET:=armv8
   DEPENDS:=+PACKAGE_u-boot-$(1):trusted-firmware-a-rk3568
-  ATF:=rk3568_bl31.elf
+#  ATF:=rk3568_bl31.elf
   OF_PLATDATA:=$(1)
 endef
 
@@ -133,8 +133,8 @@ define U-Boot/linkstar-h68k-rk3568
   NAME:=LinkstarH68k
   BUILD_DEVICES:= \
     linkstar_h68k
-  ATF:=rk3568_bl31_v1.28.elf
-  DDR:=rk3568_ddr_1560MHz_v1.13.bin
+  ATF:=rk3568_bl31_v1.43.elf
+  DDR:=rk3568_ddr_1560MHz_v1.18.bin
 endef
 
 
