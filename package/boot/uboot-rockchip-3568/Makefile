@@ -116,6 +116,17 @@ define U-Boot/rockpro64-rk3399
     pine64_rockpro64
 endef
 
+# RK3568 Targets
+# Added 26 Oct 2023 by TahomaSoft
+
+define U-Boot/rk3568/Default
+  BUILD_SUBTARGET:=armv8 # ? should this be rk3568?
+  DEPENDS:=+PACKAGE_u-boot-$(1):trusted-firmware-a-rk3568-blob
+#  ATF:=rk3568_bl31_v1.43.elf
+#  TPL:=rk3568_ddr_1560MHz_v1.18.bin
+endef
+
+
 UBOOT_TARGETS := \
   nanopc-t4-rk3399 \
   nanopi-r4s-rk3399 \

@@ -116,29 +116,6 @@ define U-Boot/rockpro64-rk3399
     pine64_rockpro64
 endef
 
-# RK3568 boards
-
-define U-Boot/rk3568/Default
-  BUILD_SUBTARGET:=armv8
-  DEPENDS:=+PACKAGE_u-boot-$(1):trusted-firmware-a-rk3568
-#  ATF:=rk3568_bl31.elf
-  OF_PLATDATA:=$(1)
-endef
-
-# linkstar_h68k
-
-define U-Boot/linkstar-h68k-rk3568
-  $(U-Boot/rk3568/Default)
-  BUILD_SUBTARGET:=armv8
-  NAME:=LinkstarH68k
-  BUILD_DEVICES:= \
-    linkstar_h68k
-  ATF:=rk3568_bl31_v1.43.elf
-  DDR:=rk3568_ddr_1560MHz_v1.18.bin
-endef
-
-
-
 UBOOT_TARGETS := \
   nanopc-t4-rk3399 \
   nanopi-r4s-rk3399 \
@@ -150,9 +127,7 @@ UBOOT_TARGETS := \
   orangepi-r1-plus-lts-rk3328 \
   roc-cc-rk3328 \
   rock64-rk3328 \
-  rock-pi-e-rk3328 \
-  linkstar-h68k-rk3568 
-
+  rock-pi-e-rk3328
 
 UBOOT_CONFIGURE_VARS += USE_PRIVATE_LIBGCC=yes
 
