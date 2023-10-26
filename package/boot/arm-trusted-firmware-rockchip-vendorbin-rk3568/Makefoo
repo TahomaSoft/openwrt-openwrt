@@ -33,9 +33,16 @@ define Trusted-Firmware-A/rk3399
   PLAT:=rk3399
 endef
 
+define Trusted-Firmware-A/rk3568
+   BUILD_SUBTARGET:=rk3568
+   PLAT:=rk3568
+endef
+
 TFA_TARGETS:= \
 	rk3328 \
-	rk3399
+	rk3399 \
+	rk3568
+
 
 ifeq ($(BUILD_VARIANT),rk3399)
   M0_GCC_NAME:=gcc-arm
