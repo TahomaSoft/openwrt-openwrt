@@ -22,13 +22,18 @@ PKG_HASH:=0
 include $(INCLUDE_DIR)/u-boot.mk
 include $(INCLUDE_DIR)/package.mk
 
-define U-Boot/Default
-	BUILD_TARGET:=rockchip-3568
+#define U-Boot/Default
+#	BUILD_TARGET:=rockchip-3568
 #	DEPENDS:=+PACKAGE_u-boot-$(1):trusted-firmware-a-rk3568
-	UENV:=default
-	HIDDEN:=1
-endef
+#	UENV:=default
+#	HIDDEN:=1
+#endef
 
+define U-Boot/Default
+  BUILD_TARGET:=rockchip-3568
+  UENV:=default
+  HIDDEN:=0
+endef
 
 # RK3568 boards
 
@@ -42,6 +47,7 @@ endef
 define U-Boot/linkstar-h68k-rk3568
   $(U-Boot/rk3568/Default)
   NAME:=LinkstarH68k
+  DEPENDS:=+PACKAGE_u-boot-$(1):trusted-firmware-a-rk3568
   BUILD_DEVICES:= \
     seeed_linkstar-h68k
 endef
@@ -79,3 +85,8 @@ define Package/u-boot/install/default
 endef
 
 $(eval $(call BuildPackage/U-Boot))
+
+.PHONY: all
+all: ; $(info $$var is [${var}])echo Hello world
+
+
