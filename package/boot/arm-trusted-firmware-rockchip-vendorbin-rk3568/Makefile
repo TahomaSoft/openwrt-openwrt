@@ -1,21 +1,56 @@
 # Test makefile
+#
+# This is free software, licensed under the GNU General Public License v2.
+# See /LICENSE for more information.
+# Copyright 2023 TahomaSoft.com
+# Revised for RK3568 from
+# Version by Tobias Maedel
+#
+# Copyright (C) 2020 Tobias Maedel <openwrt@tbspace.de>
+#
 
-all: rk3568_bl31_v1.43.elf rk3568_ddr_1560MHz_v1.18.bin rk3568_bl32_v2.10.bin RK3568TRUST.ini
+# trusted-firmware-a-rk3568
+
+include $(TOPDIR)/rules.mk
+
+PKG_VERSION:=2.9
+PKG_RELEASE:=1
+
+PKG_HASH:=76a66a1de0c01aeb83dfc7b72b51173fe62c6e51d6fca17cc562393117bed08b
+
+PKG_MAINTAINER:=Tobias Maedel <openwrt@tbspace.de>
+
+include $(INCLUDE_DIR)/kernel.mk
+# include $(INCLUDE_DIR)/trusted-firmware-a.mk
+include ./rk3568-blob-downloads.mk
+include $(INCLUDE_DIR)/package.mk
 
 
-rk3568_bl31_v1.43.elf:
-	wget https://github.com/rockchip-linux/rkbin/blob/master/bin/rk35/rk3568_bl31_v1.43.elf
-	touch $@
+define Trusted-Firmware-A/Default
+  NAME:=Rockchip $(1) SoCs rk3568
+  BUILD_TARGET:=rockchip-r
+endef
 
-rk3568_ddr_1560MHz_v1.18.bin:
-	wget https://github.com/rockchip-linux/rkbin/blob/master/bin/rk35/rk3568_ddr_1560MHz_v1.18.bin
-	touch $@
 
-rk3568_bl32_v2.10.bin:
-	wget https://github.com/rockchip-linux/rkbin/blob/master/bin/rk35/rk3568_bl32_v2.10.bin
-	touch $@
+define Trusted-Firmware-A/rk3568
+   BUILD_SUBTARGET:=rk3568
+   PLAT:=rk3568
+endef
 
-RK3568TRUST.ini:
-	wget https://github.com/rockchip-linux/rkbin/blob/master/RKTRUST/RK3568TRUST.ini
-	touch $@
+TFA_TARGETS:= \
+	rk3568
+
+trusted-firmware-a-rk3568:
+	echo "Here is trusted-firmware-a-rk3568:"
+
+
+
+
+# define Package/trusted-firmware-a/install
+#	$(INSTALL_DIR) $(STAGING_DIR_IMAGE)
+#	$(INSTALL_DATA) $(PKG_BUILD_DIR)/build/$(PLAT)/release/bl31/bl31.elf $(STAGING_DIR_IMAGE)/$(BUILD_VARIANT)_bl31.elf
+# endef
+
+$(eval $(call BuildPackage/Trusted-Firmware-A))
+
 
