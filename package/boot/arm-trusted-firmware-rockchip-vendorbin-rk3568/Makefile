@@ -22,7 +22,7 @@ PKG_MAINTAINER:=Tobias Maedel <openwrt@tbspace.de>
 
 include $(INCLUDE_DIR)/kernel.mk
 include $(INCLUDE_DIR)/trusted-firmware-a.mk
-include ./rk3568-blob-downloads.mk
+#include ./rk3568-blob-downloads.mk
 include $(INCLUDE_DIR)/package.mk
 
 define Package/trusted-firmware-a-rk3568
