@@ -48,9 +48,22 @@ define Package/rkbin
 # BUILDONLY:=1
 endef
 
-
 define Package/rkbin/description
-	Retrieve and unpack rkbin in prep for u-boot and ARM Trusted Firmware for u-boot
+	Retrieve and unpack rkbin in prep for u-boot and ARM Trusted
+	Firmware for u-boot
+endef
+
+define Build/Compile
+
+endef
+
+# define Package/Configure
+
+# endef
+
+define Package/Install
+
+touch $@
 endef
 
 define Host/Configure
@@ -61,22 +74,27 @@ endef
 define Host/Compile
 # $(call Host/Compile/Default,rkbin)
 # No Real compile
-	touch $@
+#	touch $@
 endef
-
-
-
-$(info  INSTALL_DIR is $(INSTALL_DIR))
-
 
 define Host/Install
-	$(INSTALL_DIR) $(STAGING_DIR_HOST)/bin/
-	$(INSTALL_BIN) $(HOST_BUILD_DIR)
-	$(INSTALL_BIN) $(HOST_BUILD_DIR)	
+	$(INSTALL_DIR) $(STAGING_DIR_HOST)/$(1)
+	$(INSTALL_BIN) $(HOST_BUILD_DIR)/tmp/foo $(STAGING_DIR_HOST)/bin/foo
+#	$(INSTALL_BIN) $(HOST_BUILD_DIR)
 endef
 
-$(eval $(call BuildPackage,rkbin))
+
+
+
+#$(eval $(call BuildPackage,rkbin))
+$(eval $(call Host/Compile/Default))
+$(eval $(call Host/Compile/Default,install))
 
 $(eval $(call HostBuild))
+
+
+
+
+
 
 
