@@ -5,19 +5,25 @@
 
 # 26 Oct 2023 tahomasoft
 
-
 include $(TOPDIR)/rules.mk
 include $(INCLUDE_DIR)/kernel.mk
 
-# PKG_VERSION:=2021.07
-PKG_VERSION:= 1
-# PKG_RELEASE:=5
+PKG_NAME:=uboot-rockchip-3568
 
-PKG_RELEASE:=0
+# Package Versions, Dates, Hash, etc refer to mainline U-Boot mirror at github
 
-# PKG_HASH:=312b7eeae44581d1362c3a3f02c28d806647756c82ba8c72241c7cdbe68ba77e
-PKG_HASH:=0
+# https://github.com/u-boot/u-boot
+PKG_VERSION:=2023.10
+PKG_VERSION:=1
+PKG_RELEASE:=1
 
+# https://github.com/u-boot/u-boot/commit/4459ed60cb1e0562bc5b40405e2b4b9bbf766d57
+
+# trini@konsulko.com
+# Tom Rini
+
+
+PKG_HASH:=4459ed60cb1e0562bc5b40405e2b4b9bbf766d57
 
 include $(INCLUDE_DIR)/u-boot.mk
 include $(INCLUDE_DIR)/package.mk
@@ -30,27 +36,27 @@ include $(INCLUDE_DIR)/package.mk
 #endef
 
 define U-Boot/Default
-  BUILD_TARGET:=rockchip-3568
-  UENV:=default
-  HIDDEN:=0
+	BUILD_TARGET:=rockchip-3568
+	UENV:=default
+	HIDDEN:=0
 endef
 
 # RK3568 boards
 
 define U-Boot/rk3568/Default
-  BUILD_SUBTARGET:=armv8
- # DEPENDS:=+PACKAGE_u-boot-$(1):trusted-firmware-a-rk3568
-  DEPENDS:=rkbin
-  ATF:=rk3568_bl31.elf # fix this version info
-  OF_PLATDATA:=$(1)
+	BUILD_SUBTARGET:=armv8
+	DEPENDS:=+PACKAGE_u-boot-$(1):trusted-firmware-a-rk3568
+#	DEPENDS:=rkbin trusted-firmware-a-rk3568
+	ATF:=rk3568_bl31.elf # fix this version info
+	OF_PLATDATA:=$(1)
 endef
 
 define U-Boot/linkstar-h68k-rk3568
-  $(U-Boot/rk3568/Default)
-  NAME:=LinkstarH68k
-  DEPENDS:=+PACKAGE_u-boot-$(1):trusted-firmware-a-rk3568
-  BUILD_DEVICES:= \
-    seeed_linkstar-h68k
+	$(U-Boot/rk3568/Default)
+	NAME:=LinkstarH68k
+#  DEPENDS:=+PACKAGE_u-boot-$(1):trusted-firmware-a-rk3568
+	BUILD_DEVICES:= \
+	seeed_linkstar-h68k
 endef
 
 UBOOT_TARGETS := \
@@ -59,7 +65,7 @@ UBOOT_TARGETS := \
 UBOOT_CONFIGURE_VARS += USE_PRIVATE_LIBGCC=yes
 
 UBOOT_MAKE_FLAGS += \
-  BL31=$(STAGING_DIR_IMAGE)/$(ATF)
+	BL31=$(STAGING_DIR_IMAGE)/$(ATF)
 
 define Build/Configure
 	$(call Build/Configure/U-Boot)

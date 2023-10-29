@@ -16,56 +16,59 @@ include $(TOPDIR)/rules.mk
 
 #PKG_BUILD_DEPENDS:=glib2/host meson/host .... for rockchip rkbin
 
-PKG_NAME:=trusted-firmware-a-rk3568
+PKG_NAME:=atm-tfa-rk3568
 
-# PKG_VERSION:=0.1
+PKG_VERSION:=0.1
 PKG_RELEASE:=0.0.1
-PKG_INSTALL:=1
-
-# PKG_HASH:=
+PKG_HASH:= 0000000000000
 
 PKG_MAINTAINER:=Erik Beck <bacon@tahomasoft.com>
 
 include $(INCLUDE_DIR)/kernel.mk
 include $(INCLUDE_DIR)/trusted-firmware-a.mk
-
 include $(INCLUDE_DIR)/package.mk
 
+define Trusted-Firmware-A/Default
+	NAME:=Rockchip RK-3568 SoCs
+	BUILD_TARGET:=rockchip
+endef
+
 define Trusted-Firmware-A/rk3568
-	PLAT:=armv8
-	DEFAULT:=y
+	BUILD_SUBTARGET:=armv8
+	PLAT:=rk3568
+#	DEFAULT:=y
 	NAME:=Rockchip RK3568 SoCs
 	BUILD_TARGET:=rockchip
 endef
 
 
-define Package/trusted-firmware-a-rk3568
-	SECTION:=boot
-	CATEGORY:=Boot Loaders
-	TITLE:= ARM Trusted Firmware A for Rockchip-RK3568
-	MENU:=1
-endef
+#define Package/trusted-firmware-a-rk3568
+#	SECTION:=boot
+#	CATEGORY:=Boot Loaders
+#	TITLE:= ARM Trusted Firmware A for Rockchip-RK3568
+#	MENU:=1
+#endef
 
 #define Trusted-Firmware-A/Default
 #  NAME:=Rockchip $(1) SoCs rk3568
 #  BUILD_TARGET:=rockchip
 # endef
 
-define Trusted-Firmware-A/description
-	An evolving branch for RK3568 chips
-endef
+#define Trusted-Firmware-A/description
+#	An evolving branch for RK3568 chips
+#endef
 
 # define Trusted-Firmware-A/rk3568
 #   BUILD_SUBTARGET:=rk3568
 #   PLAT:=rk3568 #linkstar instead here?
 #endef
 
-define Package/trusted-firmware-a-rk3568/description
-	Evolving package trusted firmware a for rk3568
-endef
+#define Package/trusted-firmware-a-rk3568/description
+#	Evolving package trusted firmware a for rk3568
+#endef
 
-#TFA_TARGETS:= \
-#	rk3568
+TFA_TARGETS:= \
+	rk3568
 
 #define Build/Prepare
 #	echo "Build/Prepare"
@@ -83,7 +86,7 @@ endef
 #endef
 
 
-#$(eval $(call BuildPackage/trusted-firmware-a-rk3568))
+$(eval $(call BuildPackage/Trusted-Firmware-A))
 
 
 
