@@ -14,6 +14,8 @@
 
 include $(TOPDIR)/rules.mk
 
+#PKG_BUILD_DEPENDS:=glib2/host meson/host .... for rockchip rkbin
+
 PKG_NAME:=trusted-firmware-a-rk3568
 
 # PKG_VERSION:=0.1
@@ -30,10 +32,10 @@ include $(INCLUDE_DIR)/trusted-firmware-a.mk
 include $(INCLUDE_DIR)/package.mk
 
 define Trusted-Firmware-A/rk3568
-  PLAT:=armv8
-  DEFAULT:=y
-  NAME:=Rockchip RK3568 SoCs
-  BUILD_TARGET:=rockchip
+	PLAT:=armv8
+	DEFAULT:=y
+	NAME:=Rockchip RK3568 SoCs
+	BUILD_TARGET:=rockchip
 endef
 
 
