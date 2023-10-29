@@ -39,7 +39,8 @@ endef
 
 define U-Boot/rk3568/Default
   BUILD_SUBTARGET:=armv8
-  DEPENDS:=+PACKAGE_u-boot-$(1):trusted-firmware-a-rk3568
+ # DEPENDS:=+PACKAGE_u-boot-$(1):trusted-firmware-a-rk3568
+  DEPENDS:=rkbin
   ATF:=rk3568_bl31.elf # fix this version info
   OF_PLATDATA:=$(1)
 endef
