@@ -8,7 +8,8 @@
 include $(TOPDIR)/rules.mk
 include $(INCLUDE_DIR)/kernel.mk
 
-PKG_NAME:=uboot-rockchip-3568
+
+#PKG_NAME:=uboot-rockchip-3568
 
 # Package Versions, Dates, Hash, etc refer to mainline U-Boot mirror at github
 
@@ -28,23 +29,21 @@ PKG_HASH:=4459ed60cb1e0562bc5b40405e2b4b9bbf766d57
 include $(INCLUDE_DIR)/u-boot.mk
 include $(INCLUDE_DIR)/package.mk
 
-#define U-Boot/Default
-#	BUILD_TARGET:=rockchip-3568
-#	DEPENDS:=+PACKAGE_u-boot-$(1):trusted-firmware-a-rk3568
+# define U-Boot/rk3568
+#	BUILD_TARGET:=rockchip
+#	BUILD_SUBTARGET:=armv8
+#	VARIANT:=rk3568
 #	UENV:=default
-#	HIDDEN:=1
-#endef
+#	HIDDEN:=0
 
-define U-Boot/Default
-	BUILD_TARGET:=rockchip-3568
-	UENV:=default
-	HIDDEN:=0
-endef
+# endef
 
 # RK3568 boards
 
 define U-Boot/rk3568/Default
 	BUILD_SUBTARGET:=armv8
+	VARIANT:=rk3568
+# build platform 3568?
 	DEPENDS:=+PACKAGE_u-boot-$(1):trusted-firmware-a-rk3568
 #	DEPENDS:=rkbin trusted-firmware-a-rk3568
 	ATF:=rk3568_bl31.elf # fix this version info
@@ -56,11 +55,22 @@ define U-Boot/linkstar-h68k-rk3568
 	NAME:=LinkstarH68k
 #  DEPENDS:=+PACKAGE_u-boot-$(1):trusted-firmware-a-rk3568
 	BUILD_DEVICES:= \
-	seeed_linkstar-h68k
+		seeed_linkstar-h68k
+endef
+
+# stub for now
+
+define U-Boot/bananapi-r2pro-rk3568
+	$(U-Boot/rk3568/Default)
+	NAME:=BananaPI-r2pro
+	BUILD_DEVICES:= \
+		banana-pi-r2pro
 endef
 
 UBOOT_TARGETS := \
-	linkstar-h68k-rk3568
+	linkstar-h68k-rk3568 \
+	banana-pi-r2pro
+
 
 UBOOT_CONFIGURE_VARS += USE_PRIVATE_LIBGCC=yes
 
