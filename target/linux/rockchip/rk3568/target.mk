@@ -4,6 +4,7 @@
 
 include $(TOPDIR)/rules.mk
 
+ARCH:=aarch64
 BOARDNAME:=RK3568 boards (64 bit)
 CPU_TYPE:=armv8
 CPU_SUBTYPE:=rk3568

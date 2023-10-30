@@ -44,7 +44,7 @@ define U-Boot/rk3568/Default
 	BUILD_SUBTARGET:=armv8
 	VARIANT:=rk3568
 # build platform 3568?
-	DEPENDS:=+PACKAGE_u-boot-$(1):trusted-firmware-a-rk3568
+	DEPENDS:=<+>PACKAGE_u-boot-$(1):trusted-firmware-a-rk3568
 #	DEPENDS:=rkbin trusted-firmware-a-rk3568
 	ATF:=rk3568_bl31.elf # fix this version info
 	OF_PLATDATA:=$(1)
@@ -53,9 +53,9 @@ endef
 define U-Boot/linkstar-h68k-rk3568
 	$(U-Boot/rk3568/Default)
 	NAME:=LinkstarH68k
-#  DEPENDS:=+PACKAGE_u-boot-$(1):trusted-firmware-a-rk3568
+#DEPENDS:=+PACKAGE_u-boot-$(1):trusted-firmware-a-rk3568
 	BUILD_DEVICES:= \
-		seeed_linkstar-h68k
+		linkstar-h68k
 endef
 
 # stub for now
@@ -68,7 +68,7 @@ define U-Boot/bananapi-r2pro-rk3568
 endef
 
 UBOOT_TARGETS := \
-	linkstar-h68k-rk3568 \
+	linkstar-h68k \
 	banana-pi-r2pro
 
 
