@@ -8,23 +8,31 @@
 include $(TOPDIR)/rules.mk
 include $(INCLUDE_DIR)/kernel.mk
 
-
 #PKG_NAME:=uboot-rockchip-3568
-
-# Package Versions, Dates, Hash, etc refer to mainline U-Boot mirror at github
-
-# https://github.com/u-boot/u-boot
+# https://source.denx.de/u-boot/u-boot/-/commits/v2023.10?ref_type=tags
+PKG_DISTNAME:=u-boot
 PKG_VERSION:=2023.10
-PKG_VERSION:=1
-PKG_RELEASE:=1
+PKG_RELEASE:=0
 
-# https://github.com/u-boot/u-boot/commit/4459ed60cb1e0562bc5b40405e2b4b9bbf766d57
+PKG_SOURCE:=$(PKG_DISTNAME)-$(PKG_VERSION).tar.bz2
+PKG_SOURCE_URL:= \
+	https://ftp.denx.de/pub/u-boot \
+	https://mirror.cyberbits.eu/u-boot \
+	ftp://ftp.denx.de/pub/u-boot
+PKG_HASH:=e00e6c6f014e046101739d08d06f328811cebcf5ae101348f409cbbd55ce6900
+PKG_SOURCE_SUBDIR:=$(PKG_DISTNAME)-$(PKG_VERSION)
+PKG_BUILD_DIR:=$(BUILD_DIR)/$(PKG_DISTNAME)-$(PKG_VERSION)
+PKG_BUILD_DEPENDS:=fstools
+
+# https://ftp.denx.de/pub/u-boot/u-boot-2023.10.tar.bz2
+# sha256sum u-boot-2023.10.tar.bz2
+# e00e6c6f014e046101739d08d06f328811cebcf5ae101348f409cbbd55ce6900  u-boot-2023.10.tar.bz2
 
 # trini@konsulko.com
 # Tom Rini
 
-
-PKG_HASH:=4459ed60cb1e0562bc5b40405e2b4b9bbf766d57
+# Github hash is different than ftp:
+# PKG_HASH:=4459ed60cb1e0562bc5b40405e2b4b9bbf766d57
 
 include $(INCLUDE_DIR)/u-boot.mk
 include $(INCLUDE_DIR)/package.mk
