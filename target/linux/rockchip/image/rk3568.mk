@@ -20,7 +20,6 @@ define Device/linkstar_h68k
 
 # removing kmod-mt7921e for debugging purposes; takes a long time to compile this module
 	DEVICE_PACKAGES := kmod-ata-ahci-platform  kmod-r8125 kmod-usb-serial-cp210x wpad-openssl ethtool
-#	DEPENDS:=+foo-tacos
 endef
 
 TARGET_DEVICES += linkstar_h68k
