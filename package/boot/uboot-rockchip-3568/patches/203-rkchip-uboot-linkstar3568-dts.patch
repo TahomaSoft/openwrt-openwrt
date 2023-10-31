@@ -7,7 +7,7 @@
 +
 +/ {
 +	model = "Linkstar H68K";
-+	compatible = "linkstar,opc-h68k", "rockchip,rk3568";
++	compatible = "linkstar,h68k", "rockchip,rk3568";
 +
 +	aliases {
 +		mmc0 = &sdmmc0;
