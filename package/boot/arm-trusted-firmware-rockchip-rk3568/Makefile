@@ -18,9 +18,24 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=atm-tfa-rk3568
 
-PKG_VERSION:=0.1
-PKG_RELEASE:=0.0.1
-PKG_HASH:= 0000000000000
+
+#PKG_NAME:=uboot-rockchip-3568
+# https://source.denx.de/u-boot/u-boot/-/commits/v2023.10?ref_type=tags
+PKG_DISTNAME:=u-boot
+PKG_VERSION:=lts-v2.8.10
+PKG_RELEASE:=0
+PKG_SOURCE_DATE:=2023-10-26
+
+# PKG_SOURCE:=$(PKG_DISTNAME)-$(PKG_VERSION).tar.bz2
+PKG_SOURCE_URL:=https://github.com/ARM-software/arm-trusted-firmware.git
+PKG_SOURCE_VERSION:=b2dc24a412933340cd93f9dcbfc5c559db4048b3
+#PKG_HASH:=b2dc24a412933340cd93f9dcbfc5c559db4048b3
+# PKG_SOURCE_SUBDIR:=$(PKG_DISTNAME)-$(PKG_VERSION)
+#PKG_BUILD_DIR:=$(BUILD_DIR)/$(PKG_DISTNAME)-$(PKG_VERSION)
+# PKG_BUILD_DEPENDS:=fstools
+PKG_SOURCE_PROTO:=git
+
+# Tag on github: "lts-v2.8.10"
 
 PKG_MAINTAINER:=Erik Beck <bacon@tahomasoft.com>
 
