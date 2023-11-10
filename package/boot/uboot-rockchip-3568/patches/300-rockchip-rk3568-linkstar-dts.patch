@@ -6,7 +6,7 @@
 +
 +/dts-v1/;
 +
-+#include "rk3568-linkstar.dtsi"
++#include "rk3568-h68k-u-boot.dtsi"
 +
 +/ {
 +	model = "LinkStar H68K";
