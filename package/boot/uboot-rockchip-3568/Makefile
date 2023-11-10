@@ -75,6 +75,7 @@ define U-Boot/linkstar-h68k-rk3568
 	NAME:=LinkstarH68k
 #DEPENDS:=+PACKAGE_u-boot-$(1):trusted-firmware-a-rk3568
 	DEPENDS:=trusted-firmware-a-rk3568
+	PKG_BUILD_DEPENDS:=arm-trusted-firmware-rockchip
 	BUILD_DEVICES:= \
 		linkstar-h68k
 endef
@@ -119,8 +120,11 @@ endef
 
 define Build/InstallDev
 	$(INSTALL_DIR) $(STAGING_DIR_IMAGE)
+	$(PKG_BUILD_DIR)/tools/mkimage -n rk3568 -T rksd -d \
+		$(STAGING_DIR_IMAGE)/$(DDR):$(PKG_BUILD_DIR)/spl/u-boot-spl.bin $(PKG_BUILD_DIR)/idbloader.img
 	$(CP) $(PKG_BUILD_DIR)/idbloader.img $(STAGING_DIR_IMAGE)/$(BUILD_VARIANT)-idbloader.img
 	$(CP) $(PKG_BUILD_DIR)/u-boot.itb $(STAGING_DIR_IMAGE)/$(BUILD_VARIANT)-u-boot.itb
+	$(CP) $(PKG_BUILD_DIR)/tools/mkimage $(STAGING_DIR_IMAGE)/mkimage
 endef
 
 define Package/u-boot/install/default
