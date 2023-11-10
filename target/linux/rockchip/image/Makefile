@@ -25,6 +25,7 @@ define Build/boot-script
 endef
 
 define Build/pine64-img
+# This is for RK33XX variants
 # Creates the final SD/eMMC images, 
 # combining boot partition, root partition as well as the u-boot bootloader
 
@@ -44,10 +45,10 @@ define Build/pine64-img
 	dd if="$(STAGING_DIR_IMAGE)"/$(UBOOT_DEVICE_NAME)-u-boot.itb of="$@" seek=16384 conv=notrunc
 endef
 
-define Build/linkstar-img
+define Build/rk3568-img
 # Creates the final SD/eMMC images, 
 # combining boot partition, root partition as well as the u-boot bootloader
-
+# This is for RK3568 variants
 # Generate a new partition table in $@ with 32 MiB of 
 # alignment padding for the idbloader and u-boot to fit:
 # http://opensource.rock-chips.com/wiki_Boot_option#Boot_flow
