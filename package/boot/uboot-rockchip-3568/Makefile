@@ -10,7 +10,7 @@ include $(INCLUDE_DIR)/kernel.mk
 
 # uboot version 2023.10
 
-#PKG_NAME:=uboot-rockchip-3568
+# PKG_NAME:=u-boot-linkstar-h68k
 # https://source.denx.de/u-boot/u-boot/-/commits/v2023.10?ref_type=tags
 PKG_DISTNAME:=u-boot
 PKG_VERSION:=2023.10
@@ -58,6 +58,8 @@ include $(INCLUDE_DIR)/package.mk
 
 # RK3568 boards
 
+
+
 define U-Boot/rk3568/Default
 	BUILD_SUBTARGET:=armv8
 	VARIANT:=rk3568
@@ -72,8 +74,13 @@ define U-Boot/linkstar-h68k-rk3568
 	$(U-Boot/rk3568/Default)
 	NAME:=LinkstarH68k
 #DEPENDS:=+PACKAGE_u-boot-$(1):trusted-firmware-a-rk3568
+	DEPENDS:=trusted-firmware-a-rk3568
 	BUILD_DEVICES:= \
 		linkstar-h68k
+endef
+
+define Package/u-boot-linkstar-h68k/description
+	U-Boot for RK3568 Boards, platform linkstar H68k
 endef
 
 # stub for now
