@@ -1,0 +1,11 @@
+--- a/arch/arm/Kconfig
++++ b/arch/arm/Kconfig
+@@ -1964,7 +1964,7 @@ config ARCH_STM32MP
+ config ARCH_ROCKCHIP
+ 	bool "Support Rockchip SoCs"
+ 	select BLK
+-	select BINMAN if SPL_OPTEE || SPL
++	select BINMAN if SPL_OPTEE || (SPL && !ROCKCHIP_RK3568)
+ 	select DM
+ 	select DM_GPIO
+ 	select DM_I2C
