@@ -70,12 +70,14 @@ define U-Boot/rk3568/Default
 	OF_PLATDATA:=$(1)
 endef
 
+$(info Variables: $(.VARIABLES))
+
 define U-Boot/linkstar-h68k-rk3568
 	$(U-Boot/rk3568/Default)
 	NAME:=LinkstarH68k
 #DEPENDS:=+PACKAGE_u-boot-$(1):trusted-firmware-a-rk3568
 	DEPENDS:=trusted-firmware-a-rk3568
-	PKG_BUILD_DEPENDS:=arm-trusted-firmware-rockchip
+	PKG_BUILD_DEPENDS:=trusted-firmware-a-rk3568
 	BUILD_DEVICES:= \
 		linkstar-h68k
 endef
@@ -119,7 +121,11 @@ endif
 endef
 
 define Build/InstallDev
+#   DDR:=BOGUSfix
+export
+
 	$(INSTALL_DIR) $(STAGING_DIR_IMAGE)
+# Output dir of mkimage -d .... needs work.
 	$(PKG_BUILD_DIR)/tools/mkimage -n rk3568 -T rksd -d \
 		$(STAGING_DIR_IMAGE)/$(DDR):$(PKG_BUILD_DIR)/spl/u-boot-spl.bin $(PKG_BUILD_DIR)/idbloader.img
 	$(CP) $(PKG_BUILD_DIR)/idbloader.img $(STAGING_DIR_IMAGE)/$(BUILD_VARIANT)-idbloader.img
