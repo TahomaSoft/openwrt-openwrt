@@ -77,7 +77,7 @@ define U-Boot/linkstar-h68k-rk3568
 	NAME:=LinkstarH68k
 #DEPENDS:=+PACKAGE_u-boot-$(1):trusted-firmware-a-rk3568
 	DEPENDS:=trusted-firmware-a-rk3568
-	PKG_BUILD_DEPENDS:=trusted-firmware-a-rk3568
+#	PKG_BUILD_DEPENDS:=trusted-firmware-a-rk3568
 	BUILD_DEVICES:= \
 		linkstar-h68k
 endef
@@ -122,7 +122,7 @@ endef
 
 define Build/InstallDev
 #   DDR:=BOGUSfix
-export
+
 
 	$(INSTALL_DIR) $(STAGING_DIR_IMAGE)
 # Output dir of mkimage -d .... needs work.
