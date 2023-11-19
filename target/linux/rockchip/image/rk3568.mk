@@ -17,7 +17,7 @@ define Device/linkstar_h68k
 	UBOOT_DEVICE_NAME:= linkstar-h68k-rk3568
 #	DEPENDS:=+u-boot-linkstar-h68k
 	IMAGE/sysupgrade.img.gz := boot-common | boot-script linkstar | rk3568-img | gzip | append-metadata
-	DEVICE_PACKAGES := kmod-ata-ahci-platform kmod-mt7921e kmod-r8125 kmod-usb-serial-cp210x wpad-openssl ethtool u-boot-linkstar-h68k
+	DEVICE_PACKAGES := kmod-ata-ahci-platform kmod-mt7921e kmod-r8125 kmod-usb-serial-cp210x wpad-openssl ethtool u-boot-linkstar-h68k rk3568-boot-meta
 
 # removing kmod-mt7921e for debugging purposes; takes a long time to compile this module
 #	DEVICE_PACKAGES := kmod-ata-ahci-platform  kmod-r8125 kmod-usb-serial-cp210x wpad-openssl ethtool
