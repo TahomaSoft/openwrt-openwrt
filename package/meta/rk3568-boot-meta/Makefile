@@ -4,7 +4,8 @@
 
 include $(TOPDIR)/rules.mk
 PKG_NAME:=rk3568-boot-meta
-PKG_BUILD_DEPENDS:=uboot-rockchip-3568 arm-trusted-firmware-rockchip-rkbin
+PKG_BUILD_DEPENDS:= arm-trusted-firmware-rockchip-rkbin/host uboot-rockchip-3568
+DEPENDS:= <+>arm-trusted-firmware-rockchip-rkbin/host <+>uboot-rockchip-3568
 PKG_VERSION:=0
 include $(INCLUDE_DIR)/package.mk
 

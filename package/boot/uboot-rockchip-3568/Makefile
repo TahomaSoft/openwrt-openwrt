@@ -10,8 +10,12 @@ include $(INCLUDE_DIR)/kernel.mk
 
 # uboot version 2023.10
 
-# PKG_NAME:=u-boot-linkstar-h68k
-# https://source.denx.de/u-boot/u-boot/-/commits/v2023.10?ref_type=tags
+# Package name below commented out because download routine uses it
+# As directory name to use for downloading the source from the internet
+# despite use of PKG_DISTNAME below
+
+#PKG_NAME:=uboot-rockchip-3568
+
 PKG_DISTNAME:=u-boot
 PKG_VERSION:=2023.10
 PKG_RELEASE:=0
@@ -24,22 +28,6 @@ PKG_SOURCE_URL:= \
 PKG_HASH:=e00e6c6f014e046101739d08d06f328811cebcf5ae101348f409cbbd55ce6900
 PKG_SOURCE_SUBDIR:=$(PKG_DISTNAME)-$(PKG_VERSION)
 PKG_BUILD_DIR:=$(BUILD_DIR)/$(PKG_DISTNAME)-$(PKG_VERSION)
-
-# uboot version 2023.07.02
-
-# PKG_DISTNAME:=u-boot
-# PKG_VERSION:=2023.07.02
-# PKG_RELEASE:=2
-
-# PKG_SOURCE:=$(PKG_DISTNAME)-$(PKG_VERSION).tar.bz2
-# PKG_SOURCE_URL:= \
-    https://ftp.denx.de/pub/u-boot \
-    https://mirror.cyberbits.eu/u-boot \
-    ftp://ftp.denx.de/pub/u-boot
-# PKG_HASH:=6b6a48581c14abb0f95bd87c1af4d740922406d7b801002a9f94727fdde021d5
-# PKG_SOURCE_SUBDIR:=$(PKG_DISTNAME)-$(PKG_VERSION)
-# PKG_BUILD_DIR:=$(BUILD_DIR)/$(PKG_DISTNAME)-$(PKG_VERSION)
-
 
 # PKG_BUILD_DEPENDS:=fstools
 
@@ -58,87 +46,27 @@ include $(INCLUDE_DIR)/package.mk
 
 # RK3568 boards
 
-
-
-define U-Boot/rk3568/Default
-	BUILD_SUBTARGET:=armv8
-	VARIANT:=rk3568
-# build platform 3568?
-	DEPENDS:=<+>PACKAGE_u-boot-$(1):trusted-firmware-a-rk3568
-#	DEPENDS:=rkbin trusted-firmware-a-rk3568
-	ATF:=rk3568_bl31.elf # fix this version info
-	OF_PLATDATA:=$(1)
+define Package/uboot-rockchip-3568
+ SECTION:=boot
+ CATEGORY:=Boot Loaders
+ TITLE:=Package to build U-Boot for Rockchip-RK3568
 endef
 
-$(info Variables: $(.VARIABLES))
+# $(info Variables: $(.VARIABLES))
 
-define U-Boot/linkstar-h68k-rk3568
-	$(U-Boot/rk3568/Default)
-	NAME:=LinkstarH68k
-#DEPENDS:=+PACKAGE_u-boot-$(1):trusted-firmware-a-rk3568
-	DEPENDS:=trusted-firmware-a-rk3568
-#	PKG_BUILD_DEPENDS:=trusted-firmware-a-rk3568
-	BUILD_DEVICES:= \
-		linkstar-h68k
+
+define Package/u-boot-rockchip-3568/description
+	U-Boot for RK3568 Boards
 endef
 
-define Package/u-boot-linkstar-h68k/description
-	U-Boot for RK3568 Boards, platform linkstar H68k
-endef
-
-# stub for now
-
-define U-Boot/bananapi-r2pro-rk3568
-	$(U-Boot/rk3568/Default)
-	NAME:=BananaPI-r2pro
-	BUILD_DEVICES:= \
-		banana-pi-r2pro
-endef
-
-UBOOT_TARGETS := \
-	linkstar-h68k \
-	banana-pi-r2pro
+# define Build/Compile
+#	$(call Build/Compile/Default)
+# endef
 
 
-UBOOT_CONFIGURE_VARS += USE_PRIVATE_LIBGCC=yes
-
-UBOOT_MAKE_FLAGS += \
-	BL31=$(STAGING_DIR_IMAGE)/$(ATF)
-
-define Build/Configure
-	$(call Build/Configure/U-Boot)
-
-ifneq ($(OF_PLATDATA),)
-	mkdir -p $(PKG_BUILD_DIR)/tpl/dts
-	mkdir -p $(PKG_BUILD_DIR)/include/generated
-
-	$(CP) $(PKG_BUILD_DIR)/of-platdata/$(OF_PLATDATA)/dt-plat.c $(PKG_BUILD_DIR)/tpl/dts/dt-plat.c
-	$(CP) $(PKG_BUILD_DIR)/of-platdata/$(OF_PLATDATA)/dt-structs-gen.h $(PKG_BUILD_DIR)/include/generated/dt-structs-gen.h
-	$(CP) $(PKG_BUILD_DIR)/of-platdata/$(OF_PLATDATA)/dt-decl.h $(PKG_BUILD_DIR)/include/generated/dt-decl.h
-endif
-
-	$(SED) 's#CONFIG_MKIMAGE_DTC_PATH=.*#CONFIG_MKIMAGE_DTC_PATH="$(PKG_BUILD_DIR)/scripts/dtc/dtc"#g' $(PKG_BUILD_DIR)/.config
-endef
-
-define Build/InstallDev
-#   DDR:=BOGUSfix
+$(eval $(call BuildPackage,uboot-rockchip-3568))
 
 
-	$(INSTALL_DIR) $(STAGING_DIR_IMAGE)
-# Output dir of mkimage -d .... needs work.
-	$(PKG_BUILD_DIR)/tools/mkimage -n rk3568 -T rksd -d \
-		$(STAGING_DIR_IMAGE)/$(DDR):$(PKG_BUILD_DIR)/spl/u-boot-spl.bin $(PKG_BUILD_DIR)/idbloader.img
-	$(CP) $(PKG_BUILD_DIR)/idbloader.img $(STAGING_DIR_IMAGE)/$(BUILD_VARIANT)-idbloader.img
-	$(CP) $(PKG_BUILD_DIR)/u-boot.itb $(STAGING_DIR_IMAGE)/$(BUILD_VARIANT)-u-boot.itb
-	$(CP) $(PKG_BUILD_DIR)/tools/mkimage $(STAGING_DIR_IMAGE)/mkimage
-endef
 
-define Package/u-boot/install/default
-endef
-
-$(eval $(call BuildPackage/U-Boot))
-
-.PHONY: all
-all: ; $(info $$var is [${var}])echo Hello world
 
 

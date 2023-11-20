@@ -5,7 +5,7 @@
 
 include $(TOPDIR)/rules.mk
 
-PKG_NAME:=rkbin
+PKG_NAME:=arm-trusted-firmware-rockchip-rkbin
 PKG_VERSION:=V0.0.1
 PKG_RELEASE:=1
 PKG_HASH:=b4558da0860ca48bf1a571dd33ccba580b9abe23
@@ -41,7 +41,7 @@ include $(INCLUDE_DIR)/host-build.mk
 include $(INCLUDE_DIR)/package.mk
 
 
-define Package/rkbin
+define Package/arm-trusted-firmware-rockchip-rkbin
 	SECTION:=meta
 	CATEGORY:=Image Helpers
 	TITLE:= Rockchip rkbin tools
@@ -74,7 +74,8 @@ endef
 
 $(eval $(call HostBuild))
 
-$(eval $(call BuildPackage,rkbin))
+$(eval $(call BuildPackage,arm-trusted-firmware-rockchip-rkbin))
+
 
 
 
