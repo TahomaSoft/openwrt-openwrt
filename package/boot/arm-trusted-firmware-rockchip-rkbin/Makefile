@@ -15,7 +15,6 @@ PKG_SOURCE_PROTO:=git
 PKG_SOURCE_VERSION:=b4558da0860ca48bf1a571dd33ccba580b9abe23
 PKG_SOURCE_URL:=https://github.com/rockchip-linux/rkbin.git
 
-PKG_HOST_ONLY:=1
 
 #PKG_SOURCE_URL:=https://api.github.com/repos/rockchip-linux/rkbin/tarball/master
 #PKG_SOURCE_URL:=https://github.com/ForkFandango/rockchip-rkbin/archive/refs/tags/V0.0.1.tar.gz
@@ -24,73 +23,51 @@ PKG_HOST_ONLY:=1
 
 PKG_SOURCE_DATE:=2023-07-25
 PKG_MAINTAINER:=Rockchip Kever Yang <kever.yang@rock-chips.com>
-# PKG_INSTALL:=1
 PKG_DISTNAME:=rockchip-linux-rkbin
 
 PKG_SOURCE_SUBDIR:=$(PKG_DISTNAME)-$(PKG_VERSION)
-# PKG_BUILD_DIR:=$(BUILD_DIR)/$(PKG_DISTNAME)-$(PKG_VERSION)
-
-HOST_BUILD_DIR:=$(BUILD_DIR_HOST)/trusted-firmware-a-helpers/$(PKG_DISTNAME)-$(PKG_VERSION)
-
 
 PKG_SOURCE:=$(PKG_DISTNAME)-$(PKG_HASH_SHORT).tar.gz
 
-include $(INCLUDE_DIR)/package.mk
-include $(INCLUDE_DIR)/host-build.mk
+# /home/erikbeck/SecondTry-OpenWRT/openwrt-openwrt/build_dir/hostpkg/rockchip-linux-rkbin-V0.0.1
 
-#include $(INCLUDE_DIR)/trusted-firmware-a.mk
+# Unpack source thusly:
+
+PKG_BUILD_DIR:=$(BUILD_DIR)/$(PKG_NAME)-$(PKG_VERSION)
+include $(INCLUDE_DIR)/host-build.mk
+include $(INCLUDE_DIR)/package.mk
+
 
 define Package/rkbin
-	SECTION:=boot
-	CATEGORY:=Boot Loaders
+	SECTION:=meta
+	CATEGORY:=Image Helpers
 	TITLE:= Rockchip rkbin tools
-	MENU:=1
-# BUILDONLY:=1
 endef
+
+# define Build/Prepare
+# $(call Build/Prepare/Default)
+#endef
+
+
+define Build/Compile/Default
+
+endef
+Build/Compile = $(Build/Compile/Default)
+
+
+define Build/Install
+ touch /tmp/testrkbin.install
+endef
+
 
 define Package/rkbin/description
 	Retrieve and unpack rkbin in prep for u-boot and ARM Trusted
 	Firmware for u-boot
 endef
 
-define Build/Compile
-
-endef
-
-# define Package/Configure
-
-# endef
-
-define Package/Install
-
-touch $@
-endef
-
-define Host/Configure
-#	$(call Host/Configure/Default,rkbin)
-# No real configuration
-endef
-
-define Host/Compile
-# $(call Host/Compile/Default,rkbin)
-# No Real compile
-#	touch $@
-endef
-
-define Host/Install
-	$(INSTALL_DIR) $(STAGING_DIR_HOST)/$(1)
-	$(INSTALL_BIN) $(HOST_BUILD_DIR)/tmp/foo $(STAGING_DIR_HOST)/bin/foo
-#	$(INSTALL_BIN) $(HOST_BUILD_DIR)
-endef
-
-
-
-
-#$(eval $(call BuildPackage,rkbin))
-$(eval $(call Host/Compile/Default))
-$(eval $(call Host/Compile/Default,install))
-
 $(eval $(call HostBuild))
+$(eval $(call BuildPackage,rkbin))
+
 
 
 
