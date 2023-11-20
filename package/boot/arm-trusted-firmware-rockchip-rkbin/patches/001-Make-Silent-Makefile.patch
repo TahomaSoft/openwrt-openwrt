@@ -1,0 +1,14 @@
+diff --git a/Makefile b/Makefile
+new file mode 100644
+index 0000000000..6c1cea2766
+--- /dev/null
++++ b/Makefile
+@@ -0,0 +1,8 @@
++# A makefile
++Nothing:
++
++all: #twist again
++
++install:
++
++.SILENT:

@@ -16,6 +16,9 @@ PKG_SOURCE_VERSION:=b4558da0860ca48bf1a571dd33ccba580b9abe23
 PKG_SOURCE_URL:=https://github.com/rockchip-linux/rkbin.git
 
 
+# Example:
+#https://github.com/openwrt/packages/blob/ffdbc7a637df8e3f39dd6916405f78840edccfb4/fonts/dejavu-fonts-ttf/Makefile
+
 #PKG_SOURCE_URL:=https://api.github.com/repos/rockchip-linux/rkbin/tarball/master
 #PKG_SOURCE_URL:=https://github.com/ForkFandango/rockchip-rkbin/archive/refs/tags/V0.0.1.tar.gz
 
@@ -25,7 +28,7 @@ PKG_SOURCE_DATE:=2023-07-25
 PKG_MAINTAINER:=Rockchip Kever Yang <kever.yang@rock-chips.com>
 PKG_DISTNAME:=rockchip-linux-rkbin
 
-PKG_SOURCE_SUBDIR:=$(PKG_DISTNAME)-$(PKG_VERSION)
+#PKG_SOURCE_SUBDIR:=$(PKG_DISTNAME)-$(PKG_VERSION)
 
 PKG_SOURCE:=$(PKG_DISTNAME)-$(PKG_HASH_SHORT).tar.gz
 
@@ -33,7 +36,7 @@ PKG_SOURCE:=$(PKG_DISTNAME)-$(PKG_HASH_SHORT).tar.gz
 
 # Unpack source thusly:
 
-PKG_BUILD_DIR:=$(BUILD_DIR)/$(PKG_NAME)-$(PKG_VERSION)
+# PKG_BUILD_DIR:=$(BUILD_DIR)/$(PKG_NAME)-$(PKG_VERSION)
 include $(INCLUDE_DIR)/host-build.mk
 include $(INCLUDE_DIR)/package.mk
 
@@ -44,20 +47,24 @@ define Package/rkbin
 	TITLE:= Rockchip rkbin tools
 endef
 
-# define Build/Prepare
-# $(call Build/Prepare/Default)
+#define Build/Prepare
+#	$(call Build/Prepare/Default)
 #endef
 
+#define Build/Configure
+#	$(call Build/Prepare/Default)
+#endef
 
-define Build/Compile/Default
-
+define Build/Compile
+#	$(call Build/Prepare/Default)
+	$(call Build/Compile/Default)
 endef
-Build/Compile = $(Build/Compile/Default)
 
 
-define Build/Install
- touch /tmp/testrkbin.install
-endef
+
+#define Build/Install
+#	true
+#endef
 
 
 define Package/rkbin/description
@@ -66,7 +73,10 @@ define Package/rkbin/description
 endef
 
 $(eval $(call HostBuild))
+
 $(eval $(call BuildPackage,rkbin))
+
+
 
 
 
