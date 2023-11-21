@@ -40,6 +40,14 @@ PKG_SOURCE:=$(PKG_DISTNAME)-$(PKG_HASH_SHORT).tar.gz
 include $(INCLUDE_DIR)/host-build.mk
 include $(INCLUDE_DIR)/package.mk
 
+FILES:= \
+	rk3568_bl31_v1.43.elf \
+	rk3568_ddr_1560MHz_v1.18.bin \
+	rk3568_bl32_v2.10.bin
+
+
+
+# $(foreach file, $(FILES),$(eval $(call FileCopy, $(file))))
 
 define Package/arm-trusted-firmware-rockchip-rkbin
 	SECTION:=meta
@@ -56,15 +64,35 @@ endef
 #endef
 
 define Build/Compile
-#	$(call Build/Prepare/Default)
 	$(call Build/Compile/Default)
+#	$(CP) $(PKG_BUILD_DIR)/bin/rk35/rk3568_bl31_v1.43.elf $(STAGING_DIR_IMAGE)
+#	$(info Variables: $(.VARIABLES))
 endef
 
+define Build/InstallDev
+	mkdir -p $(STAGING_DIR_IMAGE)
+	$(CP) $(PKG_BUILD_DIR)/bin/rk35/rk3568_bl31_v1.43.elf $(STAGING_DIR_IMAGE)/
+	$(CP) $(PKG_BUILD_DIR)/bin/rk35/rk3568_ddr_1560MHz_v1.18.bin $(STAGING_DIR_IMAGE)/
+	$(CP) $(PKG_BUILD_DIR)/bin/rk35/rk3568_bl32_v2.10.bin $(STAGING_DIR_IMAGE)/
+endef
 
+# define FileCopy
+# define Package/rkbin-files-$(1)
+# $(call Package/rkbin-files/Default)
+#  TITLE:=$(1)
+# endef
+# endef
 
-#define Build/Install
-#	true
-#endef
+# define FileInstall
+# define Package/rkbin-files-$(1)/install
+#	$(INSTALL_DIR) \
+#	  $(STAGING_DIR_IMAGE)
+#
+#	$(INSTALL_DATA) \
+#		$(PKG_BUILD_DIR)/bin/rk35/$(1) \
+#		$(INSTALL_DIR)
+# endef
+# endef
 
 
 define Package/rkbin/description
@@ -73,7 +101,6 @@ define Package/rkbin/description
 endef
 
 $(eval $(call HostBuild))
-
 $(eval $(call BuildPackage,arm-trusted-firmware-rockchip-rkbin))
 
 

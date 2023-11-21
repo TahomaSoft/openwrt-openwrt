@@ -2,8 +2,7 @@
 
 To build the u-boot firmware for RK3568-based Seeed Studios Linkstar
 H68k, we need the following binary files from Rockchip's rkbin tree
-installed where other stages can find them:
-
+installed where other stages can find them (from ./bin/rk35):
 
 ## Definitely ##
 * rk3568_bl31_v1.43.elf
@@ -27,3 +26,4 @@ installed where other stages can find them:
 * rk3568_ramboot_null0.bin
 * rk3568_ramboot_null1.bin
 * rk3568_ramboot_v1.08.bin
+
