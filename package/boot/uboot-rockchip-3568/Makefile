@@ -50,6 +50,7 @@ define U-Boot/Default
 	VARIANT:=rk3568
 	UENV:=default
 	HIDDEN:=0
+	UBOOT_IMAGE:=u-boot.itb
 endef
 
 # UBOOT_IMAGE:=  ???
@@ -98,7 +99,7 @@ UBOOT_TARGETS := \
 UBOOT_CONFIGURE_VARS += USE_PRIVATE_LIBGCC=yes
 
 UBOOT_MAKE_FLAGS += \
-	BL31=$(STAGING_DIR_IMAGE)/$(ATF)
+	BL31=$(STAGING_DIR_IMAGE)/$(ATF_BL31)
 
 define Build/Configure
 	$(call Build/Configure/U-Boot)
@@ -116,10 +117,18 @@ endef
 # endif
 # endef
 
+# Note from: https://opensource.rock-chips.com/wiki_Boot_option#What_is_idbloader
+# need to do: cat spl/u-boot-spl.bin >> idbloader.img
+
+
 define Build/InstallDev
 	$(INSTALL_DIR) $(STAGING_DIR_IMAGE)
-	$(STAGING_DIR_IMAGE)/loaderimage --pack --uboot $(PKG_BUILD_DIR)/u-boot-dtb.bin $(PKG_BUILD_DIR)/uboot.img 0x200000
+	$(PKG_BUILD_DIR)/tools/mkimage -n rk3568 -T rksd -d \
+		$(STAGING_DIR_IMAGE)/loaderimage --pack --uboot $(PKG_BUILD_DIR)/u-boot-dtb.bin $(PKG_BUILD_DIR)/uboot.img 0x200000
 	$(CP) $(PKG_BUILD_DIR)/uboot.img $(STAGING_DIR_IMAGE)/$(BUILD_VARIANT)-uboot.img
+	$(CP) $(PKG_BUILD_DIR)/spl/u-boot-spl.bin $(PKG_BUILD_DIR)/idbloader.img
+	$(CP) $(PKG_BUILD_DIR)/idbloader.img $(STAGING_DIR_IMAGE)/$(BUILD_VARIANT)-idbloader.img
+	$(CP) $(PKG_BUILD_DIR)/u-boot.itb $(STAGING_DIR_IMAGE)/$(BUILD_VARIANT)-u-boot.itb
 endef
 
 

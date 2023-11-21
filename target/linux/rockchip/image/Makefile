@@ -72,6 +72,7 @@ define Device/Default
   PROFILES := Default
   KERNEL = kernel-bin | lzma | fit lzma $$(DTS_DIR)/$$(DEVICE_DTS).dtb
   IMAGES := sysupgrade.img.gz
+  KERNEL_LOADADDR := 0x8000
   DEVICE_DTS = rockchip/$$(SOC)-$(lastword $(subst _, ,$(1)))
   UBOOT_DEVICE_NAME = $(lastword $(subst _, ,$(1)))-$$(SOC)
 endef

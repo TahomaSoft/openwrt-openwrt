@@ -1,0 +1,29 @@
+From ddbcec939789d1f7264134b3628ffb649ec88168 Mon Sep 17 00:00:00 2001
+From: Peter Geis <pgwipeout@gmail.com>
+Date: Sun, 19 Dec 2021 08:20:33 -0500
+Subject: [PATCH 03/11] Makefile: rockchip: HACK: build rk3568 images
+
+This is a hack to build rk3568 images.
+It seems makefile can't cope with the format mkimage expects for
+multiple file entries, so hack around the situation.
+
+Signed-off-by: Peter Geis <pgwipeout@gmail.com>
+---
+ Makefile | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
+
+--- a/Makefile
++++ b/Makefile
+@@ -1502,6 +1506,12 @@ MKIMAGEFLAGS_idbloader.img = -n $(CONFIG
+ idbloader.img: spl/u-boot-spl.bin FORCE
+ 	$(call if_changed,mkimage)
+ endif
++else
++MKIMAGEFLAGS_idbloader.img = -n $(CONFIG_SYS_SOC) -T rksd
++COMBINED_FILE = ram_init.bin
++idbloader.img: spl/u-boot-spl.bin FORCE
++	$(call if_changed,mkimage_combined)
++endif
+ 
+ ifeq ($(CONFIG_ARM64),y)
+ OBJCOPYFLAGS_u-boot-rockchip.bin = -I binary -O binary \
