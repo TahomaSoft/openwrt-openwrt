@@ -43,7 +43,9 @@ include $(INCLUDE_DIR)/package.mk
 FILES:= \
 	rk3568_bl31_v1.43.elf \
 	rk3568_ddr_1560MHz_v1.18.bin \
-	rk3568_bl32_v2.10.bin
+	rk3568_bl32_v2.10.bin \
+	loaderimage
+
 
 
 
@@ -74,6 +76,8 @@ define Build/InstallDev
 	$(CP) $(PKG_BUILD_DIR)/bin/rk35/rk3568_bl31_v1.43.elf $(STAGING_DIR_IMAGE)/
 	$(CP) $(PKG_BUILD_DIR)/bin/rk35/rk3568_ddr_1560MHz_v1.18.bin $(STAGING_DIR_IMAGE)/
 	$(CP) $(PKG_BUILD_DIR)/bin/rk35/rk3568_bl32_v2.10.bin $(STAGING_DIR_IMAGE)/
+	$(CP) $(PKG_BUILD_DIR)/tools/loaderimage $(STAGING_DIR_IMAGE)/
+
 endef
 
 # define FileCopy
