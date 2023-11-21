@@ -1,5 +1,5 @@
 --- /dev/null
-+++ b/configs/rk3568_defconfig
++++ b/configs/turkeyday_defconfig
 @@ -0,0 +1,2114 @@
 +CONFIG_CREATE_ARCH_SYMLINK=y
 +CONFIG_SYS_CACHE_SHIFT_6=y
