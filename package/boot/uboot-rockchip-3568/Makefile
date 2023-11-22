@@ -17,6 +17,9 @@ include $(INCLUDE_DIR)/kernel.mk
 
 #PKG_NAME:=uboot-rockchip-3568
 
+ATF_BL31:=rk3568_bl31_v1.43.elf
+ATF_BL32:=rk3568_bl32_v2.10.bin
+DDR:=rk3568_ddr_1560MHz_v1.18.bin
 PKG_DISTNAME:=u-boot
 PKG_VERSION:=2023.10
 PKG_RELEASE:=0
@@ -123,12 +126,13 @@ endef
 
 define Build/InstallDev
 	$(INSTALL_DIR) $(STAGING_DIR_IMAGE)
-	$(PKG_BUILD_DIR)/tools/mkimage -n rk3568 -T rksd -d \
-		$(STAGING_DIR_IMAGE)/loaderimage --pack --uboot $(PKG_BUILD_DIR)/u-boot-dtb.bin $(PKG_BUILD_DIR)/uboot.img 0x200000
-	$(CP) $(PKG_BUILD_DIR)/uboot.img $(STAGING_DIR_IMAGE)/$(BUILD_VARIANT)-uboot.img
-	$(CP) $(PKG_BUILD_DIR)/spl/u-boot-spl.bin $(PKG_BUILD_DIR)/idbloader.img
+#  $(STAGING_DIR_IMAGE)/loaderimage --pack --uboot $(PKG_BUILD_DIR)/u-boot-dtb.bin $(PKG_BUILD_DIR)/uboot.img 0x200000
+	$(PKG_BUILD_DIR)/tools/mkimage -n rk3568 -T rksd -d $(STAGING_DIR_IMAGE)/$(DDR) idbloader.img
+	$(CP) $(PKG_BUILD_DIR)/u-boot.img $(STAGING_DIR_IMAGE)/$(BUILD_VARIANT)-u-boot.img
+	cat $(PKG_BUILD_DIR)/spl/u-boot-spl.bin >> $(PKG_BUILD_DIR)/idbloader.img
 	$(CP) $(PKG_BUILD_DIR)/idbloader.img $(STAGING_DIR_IMAGE)/$(BUILD_VARIANT)-idbloader.img
 	$(CP) $(PKG_BUILD_DIR)/u-boot.itb $(STAGING_DIR_IMAGE)/$(BUILD_VARIANT)-u-boot.itb
+
 endef
 
 
