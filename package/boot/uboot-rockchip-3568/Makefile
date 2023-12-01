@@ -24,6 +24,8 @@ PKG_DISTNAME:=u-boot
 PKG_VERSION:=2023.10
 PKG_RELEASE:=0
 
+
+
 define Package/uboot-rockchip-3568
 	SECTION:=boot
 	CATEGORY:=Boot Loaders
@@ -71,6 +73,8 @@ define U-Boot/linkstar-h68k-rk3568
 	ATF_BL31:=rk3568_bl31_v1.43.elf
 	ATF_BL32:=rk3568_bl32_v2.10.bin
 	DDR:=rk3568_ddr_1560MHz_v1.18.bin
+ export BL31=$(ATF_BL31)
+ export ROCKCHIP_TPL=$(DDR)
 endef
 
 # stub for now
