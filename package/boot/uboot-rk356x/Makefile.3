@@ -25,15 +25,6 @@ PKG_VERSION:=2023.10
 PKG_RELEASE:=0
 
 
-
-define Package/uboot-rockchip-3568
-	SECTION:=boot
-	CATEGORY:=Boot Loaders
-	TITLE:=Package to build U-Boot for Rockchip-RK3568
-	MAINTAINER:= Erik Beck bacon@tahomasoft.com
-	LICENSE:=GPL-3.0 GPL-3.0+
-endef
-
 PKG_SOURCE:=$(PKG_DISTNAME)-$(PKG_VERSION).tar.bz2
 PKG_SOURCE_URL:= \
 	https://ftp.denx.de/pub/u-boot \
@@ -49,22 +40,13 @@ PKG_BUILD_DEPENDS:=arm-trusted-firmware-rockchip-rkbin fstools
 include $(INCLUDE_DIR)/u-boot.mk
 include $(INCLUDE_DIR)/package.mk
 
-define U-Boot/Default
-	BUILD_TARGET:=rockchip
-	BUILD_SUBTARGET:=armv8
-	VARIANT:=rk3568
-	UENV:=default
-	HIDDEN:=0
-	UBOOT_IMAGE:=u-boot.itb
-endef
-
-# UBOOT_IMAGE:=  ???
-
 
 define U-Boot/linkstar-h68k-rk3568
+#	$(U-Boot/rk3568/Default)
 	BUILD_TARGET:=rockchip
 	BUILD_SUBTARGET:=armv8
 	VARIANT:=rk3568
+	UBOOT_CONFIG:=linkstar-h68-rk3568
 	NAME:=LinkstarH68k
 	BUILD_DEVICES:= \
 	linkstar-h68k

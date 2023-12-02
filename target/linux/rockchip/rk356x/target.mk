@@ -5,12 +5,12 @@
 include $(TOPDIR)/rules.mk
 
 ARCH:=aarch64
-BOARDNAME:=RK3568 boards (64 bit)
+BOARDNAME:=RK356x boards (64 bit)
 CPU_TYPE:=armv8
-CPU_SUBTYPE:=rk3568
+CPU_SUBTYPE:=rk356x
 
 
 define Target/Description
-	Build firmware image for Rockchip RK35368 devices.
+	Build firmware image for Rockchip RK3536x devices.
 	This firmware features a 64 bit kernel.
 endef

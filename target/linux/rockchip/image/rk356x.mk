@@ -9,8 +9,7 @@ define Device/linkstar_h68k
 	SOC:= rk3568
 	DEVICE_MODEL:= LinkstarH68k
 	UBOOT_DEVICE_NAME:= linkstar-h68k-rk3568
-	DEVICE_PACKAGES := rk3568-boot-meta
-IMAGE/sysupgrade.img.gz := boot-common | boot-script linkstar | rk3568-img | gzip | append-metadata
+	IMAGE/sysupgrade.img.gz := boot-common | boot-script linkstar | rk3568-img | gzip | append-metadata
 endef
 
 TARGET_DEVICES += linkstar_h68k

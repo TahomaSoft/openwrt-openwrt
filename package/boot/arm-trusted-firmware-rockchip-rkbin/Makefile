@@ -34,11 +34,16 @@ PKG_SOURCE:=$(PKG_DISTNAME)-$(PKG_HASH_SHORT).tar.gz
 
 # /home/erikbeck/SecondTry-OpenWRT/openwrt-openwrt/build_dir/hostpkg/rockchip-linux-rkbin-V0.0.1
 
-# Unpack source thusly:
 
-# PKG_BUILD_DIR:=$(BUILD_DIR)/$(PKG_NAME)-$(PKG_VERSION)
+
+
 include $(INCLUDE_DIR)/host-build.mk
 include $(INCLUDE_DIR)/package.mk
+include $(INCLUDE_DIR)/kernel.mk
+include $(INCLUDE_DIR)/trusted-firmware-a.mk
+
+# Unpack source thusly:
+PKG_BUILD_DIR:=$(BUILD_DIR)/$(PKG_NAME)-$(PKG_VERSION)
 
 FILES:= \
 	rk3568_bl31_v1.43.elf \
@@ -53,9 +58,10 @@ FILES:= \
 # $(foreach file, $(FILES),$(eval $(call FileCopy, $(file))))
 
 define Package/arm-trusted-firmware-rockchip-rkbin
-	SECTION:=meta
-	CATEGORY:=Image Helpers
+	SECTION:=Administration
+	CATEGORY:=Boot Loaders
 	TITLE:= Rockchip rkbin tools
+	TYPE:=bool
 endef
 
 #define Build/Prepare
@@ -69,7 +75,6 @@ endef
 define Build/Compile
 	$(call Build/Compile/Default)
 #	$(CP) $(PKG_BUILD_DIR)/bin/rk35/rk3568_bl31_v1.43.elf $(STAGING_DIR_IMAGE)
-#	$(info Variables: $(.VARIABLES))
 endef
 
 define Build/InstallDev
