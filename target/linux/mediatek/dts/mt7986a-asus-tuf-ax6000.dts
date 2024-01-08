@@ -131,6 +131,7 @@
 		compatible = "ethernet-phy-ieee802.3-c45";
 		reg = <5>;
 
+		mxl,led-drive-vdd;
 		mxl,led-config = <0x03f0 0x0 0x0 0x0>;
 	};
 
@@ -142,7 +143,7 @@
 		mxl,led-config = <0x03f0 0x0 0x0 0x0>;
 	};
 
-	switch: switch@0 {
+	switch: switch@1f {
 		compatible = "mediatek,mt7531";
 		reg = <31>;
 

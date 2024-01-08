@@ -11,8 +11,8 @@ endef
 
 ### Image scripts ###
 define Build/boot-common
-# This creates a new folder copies the dtb (as rockchip.dtb) 
-# and the kernel image (as kernel.img)
+	# This creates a new folder copies the dtb (as rockchip.dtb) 
+	# and the kernel image (as kernel.img)
 	rm -fR $@.boot
 	mkdir -p $@.boot
 
@@ -71,8 +71,9 @@ endef
 define Device/Default
   PROFILES := Default
   KERNEL = kernel-bin | lzma | fit lzma $$(DTS_DIR)/$$(DEVICE_DTS).dtb
+  BOOT_SCRIPT :=
   IMAGES := sysupgrade.img.gz
-  KERNEL_LOADADDR := 0x8000
+  IMAGE/sysupgrade.img.gz = boot-common | boot-script $$(BOOT_SCRIPT) | pine64-img | gzip | append-metadata
   DEVICE_DTS = rockchip/$$(SOC)-$(lastword $(subst _, ,$(1)))
   UBOOT_DEVICE_NAME = $(lastword $(subst _, ,$(1)))-$$(SOC)
 endef
